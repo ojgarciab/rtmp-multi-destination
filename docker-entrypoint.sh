@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ensure directory permissions
+chown www-data.www-data /var/www/html/recordings/
+
 # Check if Youtube URLS are present
 if [ -n "$RTMP_YOUTUBE_URLS" ]; then
     # Load them one by one
