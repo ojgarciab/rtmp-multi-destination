@@ -6,16 +6,24 @@ With this docker imagen you can stream to multiple RTMP destinations as:
 * Twitch
 * and more (work in progress)
 
-## Basic usage
-
 # How to use this image
-## Hosting some simple static content
+## Exposing external ports
 
-    $ docker run --name rtmp-multi -v /local_path:/usr/share/nginx/html/recordings:ro -d redstar/rtmp-multi-destination:latest
+    $ docker run --name rtmp-multi -d -p 8080:80 -p 1935:1935 \
+        redstar/rtmp-multi-destination:latest
 
-## Exposing external port
+## Exposing recordings directory
 
-    $ docker run --name rtmp-multi -d -p 8080:80 -p 1935:1935 redstar/rtmp-multi-destination:latest
+    $ docker run --name rtmp-multi -v /local_path:/var/www/html/recordings \
+        -d -p 8080:80 -p 1935:1935 \
+        redstar/rtmp-multi-destination:latest
 
-Then you can hit `http://localhost:8080` or `http://host-ip:8080` in your browser and stream to `rtmp://localhost/live` or `rtmp://host-ip/live`.
+## Streaming to Youtube
+
+    $ docker run --name rtmp-multi -v /local_path:/var/www/html/recordings \
+        -d -p 8080:80 -p 1935:1935 \
+        -e "RTMP_YOUTUBE_URLS=key1 key2" \
+        redstar/rtmp-multi-destination:latest
+
+Then you can hit `http://localhost:8080/recordings` or `http://host-ip:8080/recordings` in your browser to watch recorded streams and configure your stream software to `rtmp://localhost/live` or `rtmp://host-ip/live`.
 
