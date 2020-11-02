@@ -9,7 +9,7 @@ if [ -n "$RTMP_YOUTUBE_URLS" ]; then
             URL="rtmp://a.rtmp.youtube.com/live2/$URL"
 	fi
         # Output one "push" per Youtube URL
-        echo "push ${URL}" >> /etc/nginx/rtmp.d/youtube.conf
+        echo "push ${URL};" >> /etc/nginx/rtmp.d/youtube.conf
     done
 fi
 
