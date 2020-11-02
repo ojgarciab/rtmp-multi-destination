@@ -4,8 +4,10 @@ LABEL maintainer="Oscar Garcia https://github.com/ojgarciab/"
 
 RUN apt-get update && \
     apt-get -y install nginx-full libnginx-mod-rtmp && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /var/www/html/recordings/ /etc/nginx/rtmp.d/ && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /var/www/html/recordings/ /etc/nginx/rtmp.d/ && \
+    chown www-data.www-data /var/www/html/recordings/ && \
     sed -ri 's#^(\tlocation / \{)#\1\n\t\tautoindex on;#' /etc/nginx/sites-enabled/default && \
     echo "\n\ninclude /etc/nginx/rtmp.conf;\n" >> /etc/nginx/nginx.conf && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
