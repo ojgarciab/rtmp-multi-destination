@@ -7,7 +7,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/www/html/recordings/ /etc/nginx/rtmp.d/ && \
     sed -ri 's#^(\tlocation / \{)#\1\n\t\tautoindex on;#' /etc/nginx/sites-enabled/default && \
-    echo "\n\ninclude /etc/nginx/rtmp.conf;\n" >> /etc/nginx/nginx.conf
+    echo "\n\ninclude /etc/nginx/rtmp.conf;\n" >> /etc/nginx/nginx.conf && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 COPY rtmp.conf /etc/nginx/rtmp.conf
 COPY docker-entrypoint.sh /
