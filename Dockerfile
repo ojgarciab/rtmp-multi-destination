@@ -17,6 +17,10 @@ COPY rtmp.conf /etc/nginx/rtmp.conf
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+# Default ingest servers (Twitch: US Central, Dallas, TX)
+ENV RTMP_YOUTUBE_BASE="rtmp://a.rtmp.youtube.com/live2/" \
+    RTMP_TWITCH_BASE="rtmp://live-dfw.twitch.tv/app/"
+
 VOLUME ["/var/www/html/recordings/"]
 EXPOSE 80 1935
 
