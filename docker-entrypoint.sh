@@ -29,5 +29,18 @@ if [ -n "$RTMP_TWITCH_URLS" ]; then
     done
 fi
 
+# Check if Facebook URLS are present
+if [ -n "$RTMP_FACEBOOK_URLS" ]; then
+    # Load them one by one
+    for URL in ${RTMP_FACEBOOK_URLS}; do
+        # If it is NOT a rtmp scheme, only a key, then add default base URL to it
+        if [ "${URL%%:*}" != "rtmp" ]; then
+            URL="${RTMP_FACEBOOK_BASE}${URL}"
+	fi
+        # Output one "push" per Twitch URL
+        echo "push ${URL};" >> /etc/nginx/rtmp.d/facebook.conf
+    done
+fi
+
 exec "$@"
 

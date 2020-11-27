@@ -34,7 +34,15 @@ With this docker imagen you can stream to multiple RTMP destinations as:
         -d -p 8080:80 -p 1935:1935 \
         -v /local_path:/var/www/html/recordings \
         -e "RTMP_TWITCH_URLS=key1 key2" \
-        -e "RTMP_TWITCH_BASE=$(curl -q 'https://ingest.twitch.tv/ingests' 2> /dev/null | egrep -om 1 "rtmp://[^.]+.twitch.tv/app/")"
+        -e "RTMP_TWITCH_BASE=$(curl -q 'https://ingest.twitch.tv/ingests' 2> /dev/null | egrep -om 1 "rtmp://[^.]+.twitch.tv/app/")" \
+        redstar/rtmp-multi-destination:latest
+
+## Streaming to Facebook
+
+    $ docker run --name rtmp-multi \
+        -d -p 8080:80 -p 1935:1935 \
+        -v /local_path:/var/www/html/recordings \
+        -e "RTMP_FACEBOOK_URLS=key1 key2" \
         redstar/rtmp-multi-destination:latest
 
 ## Addind own push servers
