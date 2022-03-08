@@ -37,7 +37,7 @@ With this docker imagen you can stream to multiple RTMP destinations as:
         -e "RTMP_TWITCH_BASE=$(curl -q 'https://ingest.twitch.tv/ingests' 2> /dev/null | egrep -om 1 "rtmp://[^.]+.twitch.tv/app/")" \
         redstar/rtmp-multi-destination:latest
 
-## Streaming to Facebook
+## Streaming to Facebook (\*)
 
     $ docker run --name rtmp-multi \
         -d -p 8080:80 -p 1935:1935 \
@@ -54,4 +54,6 @@ With this docker imagen you can stream to multiple RTMP destinations as:
         redstar/rtmp-multi-destination:latest
 
 Then you can hit `http://localhost:8080/recordings` or `http://host-ip:8080/recordings` in your browser to watch recorded streams and configure your stream software to `rtmp://localhost/live` or `rtmp://host-ip/live`.
+
+(\*) Facebook support is under development
 
